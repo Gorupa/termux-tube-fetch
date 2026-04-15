@@ -51,6 +51,7 @@ body {
 .badge-container {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 8px;
     margin-bottom: 16px;
 }
@@ -60,7 +61,7 @@ body {
     color: var(--md-sys-color-secondary);
     font-size: 0.75rem;
     font-weight: 500;
-    padding: 4px 12px;
+    padding: 6px 14px;
     border-radius: 100px;
     letter-spacing: 0.5px;
     text-transform: uppercase;
@@ -69,6 +70,7 @@ body {
 .badge-outline {
     background-color: transparent;
     border: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-primary);
 }
 
 .app-header h1 {
@@ -274,7 +276,6 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* Loading State Text */
 .status-text {
     text-align: center;
     font-weight: 500;
