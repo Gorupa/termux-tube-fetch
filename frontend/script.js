@@ -9,14 +9,15 @@ downloadBtn.addEventListener('click', async () => {
     const videoUrl = urlInput.value.trim();
     
     if (!videoUrl) {
-        alert("Please enter a valid URL");
+        alert("Please enter a valid URL.");
         return;
     }
 
     // Update UI for loading state
     resultDiv.classList.remove('hidden');
-    resultDiv.innerHTML = `<p style="font-weight: bold;">Fetching from Termux... ⏳</p>`;
+    resultDiv.innerHTML = `<p class="status-text">Handshaking with Termux Edge Node... ⏳</p>`;
     downloadBtn.disabled = true;
+    downloadBtn.querySelector('.btn-text').innerText = 'Extracting...';
 
     try {
         const response = await fetch(TERMUX_API_URL, {
@@ -30,20 +31,33 @@ downloadBtn.addEventListener('click', async () => {
         const data = await response.json();
 
         if (data.success) {
+            // Truncate title if it's too long for a clean UI
+            const shortTitle = data.title.length > 50 ? data.title.substring(0, 50) + '...' : data.title;
+
             resultDiv.innerHTML = `
-                <h3>${data.title}</h3>
-                <a href="${data.videoLink}" target="_blank" class="btn-link">⬇️ Download Video (MP4)</a>
-                ${data.audioLink ? `<a href="${data.audioLink}" target="_blank" class="btn-link">🎵 Download Audio Only</a>` : ''}
+                <h3 class="video-title">${shortTitle}</h3>
+                <div class="download-options">
+                    <a href="${data.videoLink}" target="_blank" class="btn-tonal">
+                        <span>High Quality Video</span>
+                        <span class="format-tag">MP4</span>
+                    </a>
+                    ${data.audioLink ? `
+                    <a href="${data.audioLink}" target="_blank" class="btn-tonal">
+                        <span>Audio Only</span>
+                        <span class="format-tag audio-tag">MP3 / M4A</span>
+                    </a>
+                    ` : ''}
+                </div>
             `;
         } else {
-            resultDiv.innerHTML = `<p style="color: red; font-weight: bold;">Error: ${data.error}</p>`;
+            resultDiv.innerHTML = `<p class="status-text" style="color: var(--md-sys-color-error);">Error: ${data.error}</p>`;
         }
 
     } catch (error) {
         console.error(error);
-        resultDiv.innerHTML = `<p style="color: red; font-weight: bold;">Connection failed. Is Termux running and the tunnel open?</p>`;
+        resultDiv.innerHTML = `<p class="status-text" style="color: var(--md-sys-color-error);">Connection failed. Check Termux tunnel.</p>`;
     } finally {
         downloadBtn.disabled = false;
-   
-}
+        downloadBtn.querySelector('.btn-text').innerText = 'Extract Media';
+    }
 });
