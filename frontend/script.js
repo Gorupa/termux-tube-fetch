@@ -2,8 +2,8 @@ const downloadBtn = document.getElementById('downloadBtn');
 const urlInput = document.getElementById('youtubeUrl');
 const resultDiv = document.getElementById('result');
 
-// IMPORTANT: Replace this with your actual Cloudflare Tunnel URL later
-const TERMUX_API_URL = 'https://obligations-wrestling-acute-namely.trycloudflare.com                        /extract'; 
+// Your currently active Cloudflare Tunnel URL
+const TERMUX_API_URL = 'https://obligations-wrestling-acute-namely.trycloudflare.com/extract'; 
 
 downloadBtn.addEventListener('click', async () => {
     const videoUrl = urlInput.value.trim();
@@ -31,8 +31,8 @@ downloadBtn.addEventListener('click', async () => {
         const data = await response.json();
 
         if (data.success) {
-            // Truncate title if it's too long for a clean UI
-            const shortTitle = data.title.length > 50 ? data.title.substring(0, 50) + '...' : data.title;
+            // Truncate title if it's too long to keep the UI clean
+            const shortTitle = data.title.length > 55 ? data.title.substring(0, 55) + '...' : data.title;
 
             resultDiv.innerHTML = `
                 <h3 class="video-title">${shortTitle}</h3>
@@ -55,7 +55,7 @@ downloadBtn.addEventListener('click', async () => {
 
     } catch (error) {
         console.error(error);
-        resultDiv.innerHTML = `<p class="status-text" style="color: var(--md-sys-color-error);">Connection failed. Check Termux tunnel.</p>`;
+        resultDiv.innerHTML = `<p class="status-text" style="color: var(--md-sys-color-error);">Connection failed. Please check if your Termux server and Cloudflare Tunnel are awake.</p>`;
     } finally {
         downloadBtn.disabled = false;
         downloadBtn.querySelector('.btn-text').innerText = 'Extract Media';
