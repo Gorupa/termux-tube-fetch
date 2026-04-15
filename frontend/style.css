@@ -62,5 +62,4 @@
 .anim-pulse { animation: pulseHeart 1.5s infinite; }
 .anim-spin { display: inline-block; animation: spinSlow 4s linear infinite; }
 .anim-float-hover:hover { transform: translateY(-3px); box-shadow: 0 8px 15px rgba(0, 106, 106, 0.3); }
-.anim-float-hover:active { transform: translateY(1px); box-shadow: 0 2px 5px rgba(0, 106, 106, 
-                                                                                  0.3); }
+.anim-float-hover:active { transform: translateY(1px); box-shadow: 0 2px 5px rgba(0, 106, 106, 0.3); }
