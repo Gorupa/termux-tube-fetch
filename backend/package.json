@@ -1,14 +1,13 @@
 {
   "name": "termux-backend",
   "version": "1.0.0",
-  "description": "API for extracting direct media links",
   "main": "server.js",
   "scripts": {
-    "postinstall": "curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux -o yt-dlp && chmod a+rx yt-dlp",
     "start": "node server.js"
   },
   "dependencies": {
     "cors": "^2.8.5",
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "youtube-dl-exec": "^3.0.0"
   }
 }
