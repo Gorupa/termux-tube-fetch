@@ -2,8 +2,8 @@ const downloadBtn = document.getElementById('downloadBtn');
 const urlInput = document.getElementById('youtubeUrl');
 const resultDiv = document.getElementById('result');
 
-// IMPORTANT: Replace this with your actual Cloudflare Tunnel URL later
-const TERMUX_API_URL = 'https://YOUR-CLOUDFLARE-TUNNEL-URL.trycloudflare.com/extract'; 
+// Updated with your active Cloudflare Tunnel URL
+const TERMUX_API_URL = 'https://berkeley-ceo-terrace-manga.trycloudflare.com/extract'; 
 
 downloadBtn.addEventListener('click', async () => {
     const videoUrl = urlInput.value.trim();
