@@ -242,7 +242,7 @@ body {
     color: var(--md-sys-color-primary);
 }
 
-/* Footer */
+/* Footer & Branding */
 .app-footer {
     text-align: center;
     padding: 24px 0;
@@ -250,23 +250,14 @@ body {
     font-size: 0.9rem;
 }
 
-.app-footer strong {
+.github-link {
     color: var(--md-sys-color-primary);
+    text-decoration: none;
+    transition: opacity 0.2s;
 }
 
-.branding {
-    margin-top: 12px;
-}
-
-.termux-brand {
-    display: inline-block;
-    background-color: #191C1C;
-    color: #FFFFFF;
-    padding: 6px 16px;
-    border-radius: 100px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    font-family: monospace;
+.github-link:hover {
+    opacity: 0.8;
 }
 
 @keyframes fadeIn {
