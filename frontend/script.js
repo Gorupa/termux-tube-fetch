@@ -2,8 +2,8 @@ const downloadBtn = document.getElementById('downloadBtn');
 const urlInput = document.getElementById('youtubeUrl');
 const resultDiv = document.getElementById('result');
 
-// Updated with your active Cloudflare Tunnel URL
-const TERMUX_API_URL = 'https://berkeley-ceo-terrace-manga.trycloudflare.com/extract'; 
+// Pointing to your permanent Render cloud server
+const API_URL = 'https://termux-tube-fetch.onrender.com/extract'; 
 
 downloadBtn.addEventListener('click', async () => {
     const videoUrl = urlInput.value.trim();
@@ -15,12 +15,12 @@ downloadBtn.addEventListener('click', async () => {
 
     // Update UI for loading state
     resultDiv.classList.remove('hidden');
-    resultDiv.innerHTML = `<p class="status-text">Handshaking with Termux Edge Node... ⏳</p>`;
+    resultDiv.innerHTML = `<p class="status-text">Handshaking with Cloud Node... ⏳<br><small style="font-size: 0.75rem; opacity: 0.7;">(May take up to 30s if the server is waking up)</small></p>`;
     downloadBtn.disabled = true;
     downloadBtn.querySelector('.btn-text').innerText = 'Extracting...';
 
     try {
-        const response = await fetch(TERMUX_API_URL, {
+        const response = await fetch(API_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ downloadBtn.addEventListener('click', async () => {
 
     } catch (error) {
         console.error(error);
-        resultDiv.innerHTML = `<p class="status-text" style="color: var(--md-sys-color-error);">Connection failed. Check Termux tunnel.</p>`;
+        resultDiv.innerHTML = `<p class="status-text" style="color: var(--md-sys-color-error);">Connection failed. Check if the cloud server is online.</p>`;
     } finally {
         downloadBtn.disabled = false;
         downloadBtn.querySelector('.btn-text').innerText = 'Extract Media';
