@@ -1,0 +1,119 @@
+:root {
+    --bg-color: #f4f4f0;
+    --text-color: #000000;
+    --accent: #ffeb3b;
+    --border: 3px solid #000000;
+    --shadow: 6px 6px 0px #000000;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    max-width: 500px;
+    background: #ffffff;
+    border: var(--border);
+    box-shadow: var(--shadow);
+    padding: 30px;
+    border-radius: 8px;
+}
+
+header h1 {
+    margin: 0 0 5px 0;
+    font-size: 2.5rem;
+    text-transform: uppercase;
+    letter-spacing: -1px;
+}
+
+header p {
+    margin: 0 0 25px 0;
+    font-weight: 600;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+input {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: var(--border);
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+input:focus {
+    background-color: #fafafa;
+}
+
+button {
+    background-color: var(--accent);
+    color: var(--text-color);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: 15px;
+    border: var(--border);
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 4px 4px 0px #000000;
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+button:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px #000000;
+}
+
+.result-box {
+    margin-top: 25px;
+    padding: 20px;
+    border: var(--border);
+    background-color: #e0f7fa;
+    border-radius: 4px;
+}
+
+.result-box.hidden {
+    display: none;
+}
+
+.result-box h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+}
+
+.btn-link {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background: #ffffff;
+    color: #000;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 12px 0;
+    margin-bottom: 10px;
+    border: 2px solid #000;
+    border-radius: 4px;
+    box-sizing: border-box;
+    box-shadow: 2px 2px 0px #000;
+}
+
+.btn-link:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0px 0px 0px #000;
+}
