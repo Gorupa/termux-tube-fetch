@@ -4,6 +4,7 @@
   "description": "API for extracting direct media links",
   "main": "server.js",
   "scripts": {
+    "postinstall": "curl -L https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp_linux -o yt-dlp && chmod a+rx yt-dlp",
     "start": "node server.js"
   },
   "dependencies": {
@@ -11,4 +12,3 @@
     "express": "^4.19.2"
   }
 }
-
