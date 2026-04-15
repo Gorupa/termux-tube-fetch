@@ -1,51 +1,51 @@
 const express = require('express');
 const cors = require('cors');
-const youtubedl = require('youtube-dl-exec');
+const { exec } = require('child_process');
 
 const app = express();
-const PORT = process.env.PORT || 3000; 
+const PORT = 3000;
 
 app.use(cors());
 app.use(express.json());
 
-// Health Check to prove the server is awake
-app.get('/', (req, res) => {
-    res.send('✅ MediaFetch Cloud Backend is online and ready!');
-});
-
-app.post('/extract', async (req, res) => {
+app.post('/extract', (req, res) => {
     const videoUrl = req.body.url;
     if (!videoUrl) return res.status(400).json({ success: false, error: 'URL is required' });
 
-    console.log(`Processing URL: ${videoUrl}`);
+    console.log(`[Termux Node] Processing: ${videoUrl}`);
+    
+    // Executes the globally installed yt-dlp in Termux
+    const command = `yt-dlp -J "${videoUrl}"`;
 
-    try {
-        // This safely executes yt-dlp in the background
-        const output = await youtubedl(videoUrl, {
-            dumpJson: true,
-            noWarnings: true,
-            noCallHome: true,
-            noCheckCertificates: true
-        });
+    exec(command, { maxBuffer: 1024 * 1024 * 10 }, (error, stdout, stderr) => {
+        if (error) {
+            console.error("Extraction error:", stderr || error.message);
+            return res.status(500).json({ success: false, error: 'Failed to process URL.' });
+        }
 
-        const videoLink = output.url; 
-        const formats = output.formats || [];
-        const audioFormat = formats.reverse().find(f => f.acodec !== 'none' && f.vcodec === 'none');
-        const audioLink = audioFormat ? audioFormat.url : null;
+        try {
+            const data = JSON.parse(stdout);
+            const videoLink = data.url; 
+            const formats = data.formats || [];
+            
+            // Find best audio-only stream
+            const audioFormat = formats.reverse().find(f => f.acodec !== 'none' && f.vcodec === 'none');
+            const audioLink = audioFormat ? audioFormat.url : null;
 
-        res.json({
-            success: true,
-            title: output.title,
-            videoLink: videoLink,
-            audioLink: audioLink
-        });
-
-    } catch (error) {
-        console.error("Extraction error:", error.message);
-        res.status(500).json({ success: false, error: 'Cloud extraction failed. Video might be restricted.' });
-    }
+            res.json({
+                success: true,
+                title: data.title,
+                videoLink: videoLink,
+                audioLink: audioLink
+            });
+        } catch (parseError) {
+            console.error('Parse error:', parseError);
+            res.status(500).json({ success: false, error: 'Failed to parse media data.' });
+        }
+    });
 });
 
 app.listen(PORT, () => {
-    console.log(`Cloud backend active on port ${PORT}`);
+    console.log(`Termux Edge Proxy active on http://localhost:${PORT}
+    `);
 });
