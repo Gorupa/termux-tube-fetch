@@ -9,7 +9,7 @@
  * Your tunnel URL looks like: https://xxxxx.trycloudflare.com
  */
 const TERMUX_API_URL = 'h
-   https://carlo-appendix-theology-physical.trycloudflare.com                          /extract';
+   https://carlo-appendix-theology-physical.trycloudflare.com/extract';
 
 /** Request timeout in milliseconds (30 seconds) */
 const REQUEST_TIMEOUT_MS = 30_000;
