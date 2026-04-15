@@ -3,55 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaFetch | Powered by Termux</title>
+    <title>MediaFetch — Zero-Storage Media Extractor</title>
+    <meta name="description" content="A zero-storage, edge-proxied YouTube media extractor. Downloads go directly from Google's CDN — not your server.">
+    <meta property="og:title" content="MediaFetch — Zero-Storage Media Extractor">
+    <meta property="og:description" content="Direct, unthrottled media extraction powered by Termux & Cloudflare.">
+    <meta property="og:type" content="website">
+
+    <!-- Fonts: Nunito (display/body) + JetBrains Mono (code) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!-- Material Symbols -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=block">
+
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
+
+    <!-- Ambient background orbs -->
+    <div class="ambient-bg" aria-hidden="true">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
     <div class="app-container">
+
+        <!-- ═══ HEADER ═══ -->
         <header class="app-header">
-            <div class="badge-container">
-                <span class="badge">100% Ad-Free</span>
-                <span class="badge badge-outline">Open Source</span>
-                <span class="badge badge-outline">MIT License</span>
+            <div class="badge-row">
+                <span class="badge badge--filled">🚫 Ad-Free</span>
+                <span class="badge badge--tonal">Open Source</span>
+                <span class="badge badge--outlined">MIT License</span>
             </div>
-            <h1>MediaFetch</h1>
-            <p class="subtitle">Direct, unthrottled media extraction.</p>
+
+            <div class="hero-title">
+                <div class="logo-ring" aria-hidden="true">
+                    <span class="logo-emoji">🎬</span>
+                </div>
+                <h1 class="app-name">MediaFetch</h1>
+            </div>
+
+            <p class="app-tagline">
+                Zero-storage. Edge-proxied. <em>Beautifully fast.</em>
+            </p>
         </header>
 
-        <main class="main-card elevation-2">
-            <div class="input-container">
-                <input type="url" id="youtubeUrl" placeholder="Paste YouTube link here..." autocomplete="off">
+        <!-- ═══ MAIN EXTRACTOR CARD ═══ -->
+        <main class="extractor-card" id="extractorCard">
+
+            <div class="input-group">
+                <span class="material-symbols-rounded input-icon">link</span>
+                <input
+                    type="url"
+                    id="youtubeUrl"
+                    class="url-input"
+                    placeholder="Paste a YouTube link here…"
+                    autocomplete="off"
+                    spellcheck="false"
+                    aria-label="YouTube URL"
+                >
+                <button class="paste-btn" id="pasteBtn" title="Paste from clipboard" aria-label="Paste URL">
+                    <span class="material-symbols-rounded">content_paste</span>
+                </button>
             </div>
-            
-            <button id="downloadBtn" class="btn-primary">
-                <span class="btn-text">Extract Media</span>
-                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+
+            <button id="extractBtn" class="extract-btn" aria-live="polite">
+                <span class="btn-content">
+                    <span class="btn-label">Extract Media</span>
+                    <span class="material-symbols-rounded btn-icon">download</span>
+                </span>
+                <span class="btn-loader" aria-hidden="true">
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </span>
             </button>
 
-            <div id="result" class="result-area hidden">
-                </div>
+            <!-- Result Container — dynamically populated -->
+            <div id="resultContainer" class="result-container" aria-live="polite" aria-atomic="true">
+                <!-- JS populates this -->
+            </div>
+
         </main>
 
-        <section class="dev-corner elevation-1">
-            <div class="dev-header">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="dev-icon"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
-                <h2>Developer Corner</h2>
+        <!-- ═══ DEVELOPER CORNER ═══ -->
+        <section class="dev-corner">
+            <div class="dev-corner__header">
+                <span class="material-symbols-rounded dev-corner__icon">terminal</span>
+                <h2 class="dev-corner__title">Developer Corner</h2>
             </div>
-            <div class="dev-content">
-                <p><strong>Architecture Overview:</strong> This platform utilizes a zero-storage backend proxy. The frontend (hosted on Cloudflare Pages) communicates with a local Node.js environment running within Android's <code>Termux</code> shell via secure Cloudflare Tunnels.</p>
-                <p><strong>Data Pipeline:</strong> By executing <code>yt-dlp -J</code> (JSON dump) in a child process, the backend parses the stdout metadata buffer to extract raw Google Video server endpoints. This allows the client browser to fetch media directly from the edge, bypassing the mobile node's local storage and bandwidth constraints.</p>
+            <div class="dev-corner__body">
+                <p>
+                    <strong>Architecture:</strong> The frontend (Cloudflare Pages) communicates
+                    with a local Node.js server inside Android's <code>Termux</code> shell via
+                    an encrypted <code>cloudflared</code> tunnel — no VPS, no open ports.
+                </p>
+                <p>
+                    <strong>Zero-Storage Magic:</strong> <code>yt-dlp -J</code> dumps raw JSON
+                    metadata, surfacing direct <code>googlevideo.com</code> edge URLs. Your browser
+                    fetches media straight from YouTube's CDN — the phone node never writes a byte.
+                </p>
+                <div class="stat-row">
+                    <div class="stat-chip">
+                        <span class="stat-chip__value">0 MB</span>
+                        <span class="stat-chip__label">Server Storage</span>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-chip__value">~2 KB</span>
+                        <span class="stat-chip__label">Per Request</span>
+                    </div>
+                    <div class="stat-chip">
+                        <span class="stat-chip__value">∞</span>
+                        <span class="stat-chip__label">Edge Speed</span>
+                    </div>
+                </div>
             </div>
         </section>
 
+        <!-- ═══ FOOTER ═══ -->
         <footer class="app-footer">
-            <p>Designed & Built by <a href="https://github.com/gorupa" target="_blank" style="color: var(--md-sys-color-primary); text-decoration: none;"><strong>Gaurav (@gorupa)</strong></a></p>
-            <div class="branding">
-                <span class="termux-brand">⚡ Powered by Termux</span>
-            </div>
+            <p class="footer-credit">
+                Designed &amp; Built by
+                <a href="https://github.com/gorupa" target="_blank" rel="noopener" class="footer-link">
+                    Gaurav (@gorupa)
+                </a>
+            </p>
+            <a href="https://termux-tube-fetch.pages.dev/" target="_blank" rel="noopener" class="termux-pill">
+                ⚡ Powered by Termux
+            </a>
         </footer>
-    </div>
+
+    </div><!-- /.app-container -->
+
+    <!-- Toast Notification -->
+    <div id="toast" class="toast" role="alert" aria-live="assertive"></div>
+
     <script src="script.js"></script>
 </body>
-</ht
-    ml>
+</html>
