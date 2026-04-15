@@ -7,6 +7,8 @@
 **A serverless YouTube media extractor that downloads directly from Google's own edge servers —
 costing the host exactly 0 MB of storage and kilobytes of mobile data.**
 
+[![🌐 Live Demo](https://img.shields.io/badge/🌐_Live_Demo-termux--tube--fetch.pages.dev-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://termux-tube-fetch.pages.dev/)
+
 [![Made with Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org)
 [![Powered by yt-dlp](https://img.shields.io/badge/yt--dlp-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://github.com/yt-dlp/yt-dlp)
 [![Hosted on Cloudflare](https://img.shields.io/badge/Cloudflare_Pages-F38020?style=for-the-badge&logo=cloudflare&logoColor=white)](https://pages.cloudflare.com)
@@ -238,6 +240,8 @@ Distributed under the **MIT License**. See [`LICENSE`](LICENSE) for more informa
 ---
 
 **Designed & Built with ❤️ by [Gaurav](https://github.com/yourusername)**
+
+🌐 **Live at → [termux-tube-fetch.pages.dev](https://termux-tube-fetch.pages.dev/)**
 
 *"Why pay for bandwidth when Google already has it?"*
 
