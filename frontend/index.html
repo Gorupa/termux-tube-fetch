@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MediaFetch | Powered by Termux</title>
+    <title>MediaFetch</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
@@ -38,18 +38,16 @@
                 <h2>Developer Corner</h2>
             </div>
             <div class="dev-content">
-                <p><strong>Architecture Overview:</strong> This platform utilizes a zero-storage backend proxy. The frontend (hosted on Cloudflare Pages) communicates with a local Node.js environment running within Android's <code>Termux</code> shell via secure Cloudflare Tunnels.</p>
-                <p><strong>Data Pipeline:</strong> By executing <code>yt-dlp -J</code> (JSON dump) in a child process, the backend parses the stdout metadata buffer to extract raw Google Video server endpoints. This allows the client browser to fetch media directly from the edge, bypassing the mobile node's local storage and bandwidth constraints.</p>
+                <p><strong>Architecture Overview:</strong> This platform utilizes a zero-storage backend proxy running on Render's cloud infrastructure. The frontend (hosted on Cloudflare Pages) communicates with a lightweight Node.js environment.</p>
+                <p><strong>Data Pipeline:</strong> By executing a headless JSON extraction in a child process, the backend parses the metadata to locate raw Google Video server endpoints. This allows the client browser to fetch media directly from the edge, bypassing backend bandwidth constraints entirely.</p>
             </div>
         </section>
 
         <footer class="app-footer">
-            <p>Designed & Built by <strong>Gaurav</strong></p>
-            <div class="branding">
-                <span class="termux-brand">⚡ Powered by Termux</span>
-            </div>
+            <p>Designed & Built by <a href="https://github.com/gorupa" target="_blank" class="github-link"><strong>Gaurav (@gorupa)</strong></a></p>
         </footer>
     </div>
     <script src="script.js"></script>
 </body>
-</html>
+</ht
+    ml>
