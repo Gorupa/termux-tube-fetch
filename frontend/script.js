@@ -3,7 +3,7 @@ const urlInput = document.getElementById('youtubeUrl');
 const resultDiv = document.getElementById('result');
 
 // IMPORTANT: Replace this with your actual Cloudflare Tunnel URL later
-const TERMUX_API_URL = 'https://particles-prayers-louis-hydrocodone.trycloudflare.com/extract'; 
+const TERMUX_API_URL = 'https://obligations-wrestling-acute-namely.trycloudflare.com                        /extract'; 
 
 downloadBtn.addEventListener('click', async () => {
     const videoUrl = urlInput.value.trim();
